@@ -1,8 +1,9 @@
-import {useState , useEffect} from 'react';
-import { getAuth , GoogleAuthProvider , signInWithPopup  , signOut , onAuthStateChanged , GithubAuthProvider,  getIdToken  } from "firebase/auth";
-import firebaseAuthentication from "../firebase/firebase.init";
 
-firebaseAuthentication();
+import {useState , useEffect} from 'react';
+import { getAuth , GoogleAuthProvider , signInWithPopup , signOut , onAuthStateChanged , GithubAuthProvider , getIdToken  } from "firebase/auth";
+import firebaseInitializetion from "../firebase/firebase.init";
+
+firebaseInitializetion();
 
 const useFirebase = () => {
 
@@ -18,12 +19,12 @@ const useFirebase = () => {
     const SigninGoogle = ( navigate , redirect_location) => {
         setIsLoading(true)
         signInWithPopup(auth, googleProvider)
-            .then((result) => {
-                const user = result.user;
-                saveUser(user.email, user.displayName, "PUT");
-                navigate(redirect_location);
-            }).catch(() => alert("something Wrong"))
-            .finally(() => setIsLoading(false));
+        .then((result) => {
+            const user = result.user;
+            saveUser(user.email, user.displayName, "PUT");
+            navigate(redirect_location);
+        }).catch(() => alert("something Wrong"))
+        .finally(() => setIsLoading(false));
     }
 
     // github login -------------------->
@@ -31,19 +32,18 @@ const useFirebase = () => {
     const SigninGithub = (navigate , redirect_location) => {
         setIsLoading(true);
         signInWithPopup(auth, githubProvider)
-            .then((result) => {
-                const user = result.user;
-                saveUser(user.email, user.displayName, "PUT");
-                navigate(redirect_location);
-            }).catch(() => alert("something Wrong"))
-            .finally(() => setIsLoading(false));
+        .then((result) => {
+            const user = result.user;
+            saveUser(user.email, user.displayName, "PUT");
+            navigate(redirect_location);
+        }).catch(() => alert("something Wrong"))
+        .finally(() => setIsLoading(false));
     }
-
 
     // search admin ----------------------->
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://still-woodland-71864.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
             .then(data => setAdmin(data.admin))
             }, [user.email]);
@@ -75,7 +75,7 @@ const useFirebase = () => {
 
     const saveUser = (email, displayName , method) => {
         const user = { email, displayName };
-        fetch("http://localhost:5000/users", {
+        fetch("https://still-woodland-71864.herokuapp.com/users", {
             method: method,
             headers: {
                 'content-type': 'application/json'
@@ -94,7 +94,7 @@ const useFirebase = () => {
         isLoading,
         setIsLoading,
         saveUser,
-        admin,
+        admin
     }
 };
 

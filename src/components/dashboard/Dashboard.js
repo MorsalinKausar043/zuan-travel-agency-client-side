@@ -22,7 +22,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* <!-- sidebar --> */}
-                <div className="sidebar bg-blue-800 text-blue-100 w-100 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+                <div className="sidebar bg-blue-800 text-blue-100 w-60 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
 
                 {/* <!-- logo --> */}
                 <NavLink to="/" className="text-white flex items-center space-x-2 px-4">
@@ -41,22 +41,22 @@ const Dashboard = () => {
                     </NavLink>
                     <NavLink to='/dashboard/addtravels'>
                         <button className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                            Add Travel
+                            Add Blog
                         </button>
                     </NavLink>
-                    <NavLink to='/'>
+                    <NavLink to='/dashboard/myorder'>
                         <button className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                            My Order
+                            My Blog
                         </button>
                     </NavLink>
-                    <NavLink to='/'>
+                    <NavLink to='/dashboard/allorder'>
                         <button className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                            All Order
+                            All Blog
                         </button>
                     </NavLink>
-                    <NavLink to='/'>
+                    <NavLink to='/dashboard/manageorder'>
                         <button className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                            Mannage Order
+                            Mannage Blog
                         </button>
                     </NavLink>
                     <NavLink to='/'>

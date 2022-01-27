@@ -22,7 +22,7 @@ const LoginPage = () => {
     return (
         <>
             <Navbar/>
-           <div className="w-full mx-auto mt-4 md:mt-40 max-w-xs">
+           <div className="w-full mx-auto mt-4 md:mt-40 mb-4 md:mb-16 lg:mb-20 max-w-xs">
                 <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                    
                     <h1 className='text-center text-xl mb-4 font-bold text-blue-600'>SignIn</h1>

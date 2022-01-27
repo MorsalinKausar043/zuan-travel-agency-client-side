@@ -1,25 +1,64 @@
 import { useState } from "react";
+import ReactStars from 'react-stars'
 
 
 const AddTravel = () => {
 
+    let formData = new FormData();
+    const [image, setImage] = useState(null);
+    const [rating, setRating] = useState(0);
     const [data, setData] = useState({
         title: "",
         category:"",
         description: "",
         cost: "",
-        location:""
+        location: "",
     });
+
 
     const handleInputBox = (e) => {
 
         const { name, value } = e.target;
         setData({...data , [name]:value})
-    }
+  }
 
     const submitAddData = (e) => {
-        e.preventDefault();
-        console.log(data);
+      e.preventDefault();
+        const user = "admin";
+        let panding = user === "admin" ? "approvet" : "panding";
+        const { title,description, category, cost, location } = data;
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("category", category);
+        formData.append("cost", cost);
+        formData.append("location", location);
+        formData.append("rating", rating);
+        formData.append("image", image);
+        formData.append("panding", panding);
+        
+        if (title && description && category && cost && location )
+        {
+            // data.status = "pending";
+            fetch('http://localhost:5000/addTravels', {
+                method: "POST",
+                body:formData
+              })
+              .then(res => {
+                  if (res.status === 200)
+                  {
+                    e.target.reset();
+                    setData({title:"",category:"",description:"",cost:"" , location:"",});
+                      alert('added successfully');
+                  } else
+                  {
+                    alert("added Unsuccessfull");
+                  }
+            })
+        }
+        else
+        {
+            alert("please fill the input box!")
+        }
     }
      
     return (
@@ -81,12 +120,13 @@ const AddTravel = () => {
                       <div className="mt-1">
                         <textarea
                           id="about"
-                          name="about"
+                          name="description"
+                          value={data.description}
                           rows={5}
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                           placeholder="description"
-                        defaultValue={''}
-                        onChange={handleInputBox}
+                          defaultValue={''}
+                          onChange={handleInputBox}
                         />
                       </div>
                       <p className="mt-2 text-sm text-gray-500">
@@ -137,6 +177,25 @@ const AddTravel = () => {
                         </div>
                       </div>
                     </div>
+                  
+                    <div className="grid grid-cols-3 gap-6">
+                      <div className="col-span-3 sm:col-span-2">
+                        <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
+                        Rating 
+                        </label>
+                        <div className="mt-1 flex rounded-md shadow-sm">
+                          <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                            add
+                          </span>
+                          <ReactStars
+                            count={5}
+                            onChange={data => setRating(data)}
+                            name="rating"
+                            size={24}
+                            color2={'#ffd700'} />
+                        </div>
+                      </div>
+                    </div>
   
                     <div>
                       <label className="block text-sm font-medium text-gray-700">Cover photo</label>
@@ -162,7 +221,7 @@ const AddTravel = () => {
                               className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                             >
                               <span>Upload a file</span>
-                              <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                              <input id="file-upload" onChange={e=> setImage(e.target.files[0])} accept="image/*" name="file-upload" type="file" className="sr-only" />
                             </label>
                             <p className="pl-1">or drag and drop</p>
                           </div>

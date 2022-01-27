@@ -4,25 +4,25 @@ const features = [
   {
     name: 'Competitive exchange rates',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'I signed my will and got approved for a mortgage. It was a big week for adulting. I never felt more part of the system than when I had to sign all those papers.',
     icon: GlobeAltIcon,
   },
   {
     name: 'No hidden fees',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'As a member of Nomadic Matt Plus, you not only get tons of perks to make your travels cheaper but you help us keep creating the in-depth travel content you love!',
     icon: ScaleIcon,
   },
   {
     name: 'Transfers are instant',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'Members also get free books, guidebooks, blogging courses, access to our events, event replays, monthly giveaways, t-shirts, exclusive money-saving travel discounts, and more!',
     icon: LightningBoltIcon,
   },
   {
     name: 'Mobile notifications',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'This article is exclusively for members of Nomadic Matt Plus! NM+ is our member only program that gives readers like yourself access to bonus blog posts. ',
     icon: AnnotationIcon,
   },
 ]
@@ -30,7 +30,7 @@ const features = [
 const MiddleBanner = () => {
 
   return (
-    <div className="pt-12 pb-20 bg-white">
+    <div className="pt-12 pb-20 md:pb-40 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center">
           <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Transactions</h2>
