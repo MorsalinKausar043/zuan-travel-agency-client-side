@@ -1,101 +1,53 @@
+import { getAuth , GoogleAuthProvider , signInWithPopup , signOut , onAuthStateChanged , GithubAuthProvider  } from "firebase/auth";
+import { useEffect, useState } from "react";
+import firebaseinit from "../firebase/firebase.init";
 
-import {useState , useEffect} from 'react';
-import { getAuth , GoogleAuthProvider , signInWithPopup , signOut , onAuthStateChanged , GithubAuthProvider , getIdToken  } from "firebase/auth";
-import firebaseInitializetion from "../firebase/firebase.init";
-
-firebaseInitializetion();
+firebaseinit();
 
 const useFirebase = () => {
 
     const auth = getAuth();
     const [user, setUser] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
-    const [admin, setAdmin] = useState(false)
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
 
-    // google login ------------------->
-
-    const SigninGoogle = ( navigate , redirect_location) => {
-        setIsLoading(true)
-        signInWithPopup(auth, googleProvider)
-        .then((result) => {
-            const user = result.user;
-            saveUser(user.email, user.displayName, "PUT");
-            navigate(redirect_location);
-        }).catch(() => alert("something Wrong"))
-        .finally(() => setIsLoading(false));
+    const SigninGoogle = () => {
+        return signInWithPopup(auth, googleProvider)
     }
 
-    // github login -------------------->
-
-    const SigninGithub = (navigate , redirect_location) => {
-        setIsLoading(true);
-        signInWithPopup(auth, githubProvider)
-        .then((result) => {
-            const user = result.user;
-            saveUser(user.email, user.displayName, "PUT");
-            navigate(redirect_location);
-        }).catch(() => alert("something Wrong"))
-        .finally(() => setIsLoading(false));
+    const SigninGithub = () => {
+       return signInWithPopup(auth, githubProvider)
     }
 
-    // search admin ----------------------->
 
-    useEffect(() => {
-        fetch(`https://still-woodland-71864.herokuapp.com/users/${user.email}`)
-            .then(res => res.json())
-            .then(data => setAdmin(data.admin))
-            }, [user.email]);
 
-    // observer user state ------------------->
-    
-    useEffect(() => {
-        const unsubscribed = onAuthStateChanged(auth, (user) => {
+    useEffect(() =>
+        onAuthStateChanged(auth, (user) => {
             if (user)
             {
-                getIdToken(user)
-                .then(idToken => localStorage.setItem('idToken', idToken));
-                setUser(user);
-            } else {
+                setUser(user)
+            }
+            else
+            {
                 setUser({})
             }
-            setIsLoading(false);
-        });
-        return () => unsubscribed;
-    }, [auth])
+        })
+        , [auth]);
     
-    // user logout state set ---------------->
-
     const logOut = () => {
         return signOut(auth)
     }
 
-    // datebase post on register user --------------------------->
-
-    const saveUser = (email, displayName , method) => {
-        const user = { email, displayName };
-        fetch("https://still-woodland-71864.herokuapp.com/users", {
-            method: method,
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        }).then()
-    }
-
+    console.log(user);
+    
     return {
         user,
-        setUser,
         logOut,
         SigninGoogle,
         SigninGithub,
         auth,
-        isLoading,
-        setIsLoading,
-        saveUser,
-        admin
+        setUser
     }
-};
+}
 
 export default useFirebase;

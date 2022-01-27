@@ -1,6 +1,9 @@
-import { PaperClipIcon } from '@heroicons/react/solid'
+import { PaperClipIcon } from '@heroicons/react/solid';
+import useAuth from "../../hooks/useAuth";
 
-export default function Example() {
+const Profile = () => {
+
+  const { user } = useAuth();
 
     return (
       <div className="bg-white shadow overflow-hidden sm:rounded-lg p-2 md:px-8 md:py-4">
@@ -12,7 +15,7 @@ export default function Example() {
           <dl>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Full name</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Margot Foster</dd>
+              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user.displayName}</dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Application for</dt>
@@ -20,7 +23,7 @@ export default function Example() {
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Email address</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">margotfoster@example.com</dd>
+              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{ user.email ? user.email : "margotfoster@example.com"}</dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Salary expectation</dt>
@@ -68,4 +71,6 @@ export default function Example() {
       </div>
     )
 }
+
+export default Profile;
   

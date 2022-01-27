@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
@@ -17,8 +17,8 @@ function classNames(...classes) {
 
 const Navbar = () => {
 
-  const { user,logOut } = useAuth();
-
+  const { logOut, user } = useAuth();
+  
   return (
     <Disclosure as="nav" className="bg-blue-800">
       {({ open }) => (
@@ -75,13 +75,22 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
+                {
+                  user.email || user.displayName?
+                  <button onClick={()=>logOut()}
                   type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                  >
+                  logOut
+                    </button>
+                    :
+                    <NavLink to="/login"
+                    type="button"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    >
+                    Login
+                  </NavLink>
+                }
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
@@ -89,9 +98,9 @@ const Navbar = () => {
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-8 rounded-full"
-                        src={user.photoURL}
-                        alt=""
+                        className="h-8 w-10 rounded-full"
+                        src="https://i.ibb.co/C1phVKw/download.png"
+                        alt="profile_photo"
                       />
                     </Menu.Button>
                   </div>

@@ -2,6 +2,7 @@ import { useEffect,useState } from "react";
 
 const useProduct = () => {
     const [productData, setProductData] = useState([]);
+    const [AllproductData, setAllProductData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -17,12 +18,23 @@ const useProduct = () => {
                 setPageCount(Math.ceil(data.count / size));
             }).finally(() => setIsLoading(false))
     }, [currentPage]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/product`)
+            .then(res => res.json())
+            .then((data) => {
+                setAllProductData(data.products)
+                setIsLoading(true)
+            }).finally(() => setIsLoading(false))
+    }, []);
+
     return {
         productData,
         isLoading,
         pageCount,
         currentPage,
-        setCurrentPage
+        setCurrentPage,
+        AllproductData
     }
 };
 

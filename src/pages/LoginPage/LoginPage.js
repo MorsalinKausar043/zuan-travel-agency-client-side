@@ -1,46 +1,89 @@
-import React from 'react';
-import Navbar from '../navbar/Navbar';
-// import useAuth from "../../hooks/useAuth";
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import Navbar from "../navbar/Navbar";
 
 const LoginPage = () => {
 
     const { SigninGoogle, SigninGithub } = useAuth();
+
     const navigate = useNavigate();
-    const location = useLocation();
+    const location = useLocation(); 
     const redirect_location = location.state?.from || "/home";
 
     const googleSingIn = () => {
-        SigninGoogle(navigate, redirect_location);
+        SigninGoogle()
+            .then(() => {
+                navigate(redirect_location)
+            });
     };
 
     const githubSignIn = () => {
-        SigninGithub(navigate, redirect_location);
+        SigninGithub()
+            .then(() => {
+                navigate(redirect_location)
+            });
     };
 
     return (
         <>
+          
             <Navbar/>
-           <div className="w-full mx-auto mt-4 md:mt-40 mb-4 md:mb-16 lg:mb-20 max-w-xs">
-                <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                   
-                    <h1 className='text-center text-xl mb-4 font-bold text-blue-600'>SignIn</h1>
-                    <div className='flex justify-center items-center flex-col'>
-                        <button onClick={googleSingIn} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                            LogIn With Google
-                        </button>
-                        <button onClick={githubSignIn} className="bg-red-500 mt-2 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                            LogIn With Github
-                        </button>
+            <div className="min-h-full flex items-center justify-center py-12 md:py-16 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-md w-full space-y-8">
+                    <div>
+                        <img
+                            className="mx-auto h-12 w-auto"
+                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                            alt="Workflow"
+                        />
+                        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
+                        <p className="mt-2 text-center text-sm text-gray-600">
+                            Or{' '}
+                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                start your 14-day free trial
+                            </a>
+                        </p>
                     </div>
-                </form>
-                <p className="text-center text-gray-500 text-xs">
-                    &copy;2020 Acme Corp. All rights reserved.
-                </p>
-            </div> 
+                    <div className="my-8 space-y-6">
+                        <input type="hidden" name="remember" defaultValue="true" />
+                        <div className="rounded-md shadow-sm -space-y-px">
+                            <div className='text-center'>
+                                <button onClick={() => googleSingIn()} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    sign With Google
+                                </button>
+                            </div>
+                            <div onClick={() => githubSignIn()} className='text-center pb-4'>
+                                <button class="bg-red-500 mt-4 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                    Sign With Github
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <input
+                                    id="remember-me"
+                                    name="remember-me"
+                                    type="checkbox"
+                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                />
+                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                                    Remember me
+                                </label>
+                            </div>
+
+                            <div className="text-sm">
+                                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                    Forgot your email?
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
-    );
+    )
 };
 
 export default LoginPage;
