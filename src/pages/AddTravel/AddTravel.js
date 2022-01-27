@@ -39,7 +39,7 @@ const AddTravel = () => {
         if (title && description && category && cost && location )
         {
             // data.status = "pending";
-            fetch('http://localhost:5000/addTravels', {
+            fetch('https://nameless-mesa-53109.herokuapp.com/addTravels', {
                 method: "POST",
                 body:formData
               })

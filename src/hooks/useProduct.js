@@ -10,7 +10,7 @@ const useProduct = () => {
     const size = 10;
 
     useEffect(() => {
-        fetch(`http://localhost:5000/product?currentPage=${currentPage > 0 ? currentPage-1 : setCurrentPage(pageCount+1)}&&size=${size}`)
+        fetch(`https://nameless-mesa-53109.herokuapp.com/product?currentPage=${currentPage > 0 ? currentPage-1 : setCurrentPage(pageCount+1)}&&size=${size}`)
             .then(res => res.json())
             .then((data) => {
                 setProductData(data.products)
@@ -20,7 +20,7 @@ const useProduct = () => {
     }, [currentPage]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/product`)
+        fetch(`https://nameless-mesa-53109.herokuapp.com/product`)
             .then(res => res.json())
             .then((data) => {
                 setAllProductData(data.products)
