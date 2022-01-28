@@ -17,6 +17,7 @@ import MyOrder from '../components/MyOrder/MyOrder';
 import ManageOrder from '../components/ManageOrder/ManageOrder';
 import Errorpage from '../components/errorpage/Errorpage';
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import MakeAdmin from '../pages/makeAdmin/MakeAdmin';
 
 const Routess = () => {
     return (
@@ -32,9 +33,10 @@ const Routess = () => {
                             <Route path="/dashboard/allorder" element={<PrivateRoute><AllOrder/></PrivateRoute>}/>
                             <Route path="/dashboard/myorder" element={<PrivateRoute><MyOrder/></PrivateRoute>}/>
                             <Route path="/dashboard/manageorder" element={<PrivateRoute><ManageOrder/></PrivateRoute>}/>
+                            <Route path="/dashboard/makeadmin" element={<PrivateRoute><MakeAdmin/></PrivateRoute>}/>
                         </Route>
                         <Route path="/login" element={<LoginPage />} />
-                        <Route path="/product/:_id" element={<SingleProduct />} />
+                        <Route path="/product/:_id" element={<PrivateRoute><SingleProduct /></PrivateRoute>} />
                         <Route path="*" element={<Errorpage />} />
                     </Routes>
                     <Footer/>

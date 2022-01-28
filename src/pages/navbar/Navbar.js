@@ -19,12 +19,15 @@ const Navbar = () => {
 
   const { logOut, user } = useAuth();
   const navigate = useNavigate();
+  const staticPic = "https://i.ibb.co/q0QVrCN/images-2.jpg";
 
   const LogOutNow = () => {
-    localStorage.removeItem("idToken");
-    navigate("/home");
-    logOut();
-  }
+    logOut().then(() => {
+      localStorage.removeItem("idToken");
+      navigate("/home");
+    })
+  };
+
   
   return (
     <Disclosure as="nav" className="bg-blue-800">
@@ -105,8 +108,8 @@ const Navbar = () => {
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
                       <img
-                        className="h-8 w-10 rounded-full"
-                        src="https://i.ibb.co/C1phVKw/download.png"
+                        className="h-8 w-8 rounded-full"
+                        src={`${user.photoURL ? user.photoURL : staticPic}`}
                         alt="profile_photo"
                       />
                     </Menu.Button>
