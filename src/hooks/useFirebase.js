@@ -1,4 +1,4 @@
-import { getAuth , GoogleAuthProvider , signInWithPopup , signOut , onAuthStateChanged , GithubAuthProvider  } from "firebase/auth";
+import { getAuth , GoogleAuthProvider , signInWithPopup , signOut , getIdToken , onAuthStateChanged , GithubAuthProvider  } from "firebase/auth";
 import { useEffect, useState } from "react";
 import firebaseinit from "../firebase/firebase.init";
 
@@ -8,8 +8,10 @@ const useFirebase = () => {
 
     const auth = getAuth();
     const [user, setUser] = useState({});
+    const [isLoading, setIsLoading ] = useState(false);
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
+
 
     const SigninGoogle = () => {
         return signInWithPopup(auth, googleProvider)
@@ -19,13 +21,13 @@ const useFirebase = () => {
        return signInWithPopup(auth, githubProvider)
     }
 
-
-
     useEffect(() =>
         onAuthStateChanged(auth, (user) => {
             if (user)
             {
                 setUser(user)
+                getIdToken(user)
+                .then(idToken => localStorage.setItem('idToken', idToken));
             }
             else
             {
@@ -35,10 +37,8 @@ const useFirebase = () => {
         , [auth]);
     
     const logOut = () => {
-        return signOut(auth)
+        return signOut(auth);
     }
-
-    console.log(user);
     
     return {
         user,
@@ -46,7 +46,9 @@ const useFirebase = () => {
         SigninGoogle,
         SigninGithub,
         auth,
-        setUser
+        setUser,
+        isLoading,
+        setIsLoading
     }
 }
 

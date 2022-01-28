@@ -1,14 +1,14 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
   { name: 'Team', href: '#', current: false },
   { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Calendar', href: '#', current: false }
 ]
 
 function classNames(...classes) {
@@ -18,6 +18,13 @@ function classNames(...classes) {
 const Navbar = () => {
 
   const { logOut, user } = useAuth();
+  const navigate = useNavigate();
+
+  const LogOutNow = () => {
+    localStorage.removeItem("idToken");
+    navigate("/home");
+    logOut();
+  }
   
   return (
     <Disclosure as="nav" className="bg-blue-800">
@@ -77,7 +84,7 @@ const Navbar = () => {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {
                   user.email || user.displayName?
-                  <button onClick={()=>logOut()}
+                    <button onClick={() => LogOutNow()}
                   type="button"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                   >
@@ -137,7 +144,7 @@ const Navbar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            onClick={_=> logOut()}
+                            onClick={_=> LogOutNow()}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out

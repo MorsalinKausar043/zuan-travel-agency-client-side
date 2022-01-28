@@ -5,7 +5,7 @@ import Navbar from "../navbar/Navbar";
 
 const LoginPage = () => {
 
-    const { SigninGoogle, SigninGithub } = useAuth();
+    const { SigninGoogle, SigninGithub, setIsLoading } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation(); 
@@ -14,15 +14,17 @@ const LoginPage = () => {
     const googleSingIn = () => {
         SigninGoogle()
             .then(() => {
-                navigate(redirect_location)
-            });
+                navigate(redirect_location);
+                // setIsLoading(true);
+            }).finally(_ => setIsLoading(false));
     };
 
     const githubSignIn = () => {
         SigninGithub()
             .then(() => {
-                navigate(redirect_location)
-            });
+                navigate(redirect_location);
+                // setIsLoading(true);
+            }).finally(_ => setIsLoading(false));
     };
 
     return (

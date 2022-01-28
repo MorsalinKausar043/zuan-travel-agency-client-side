@@ -39,8 +39,8 @@ const Carousel = () => {
                         alt="Motorbike Smoke"
                     />
                     <div className="carousel-caption hidden md:block absolute text-center">
-                        <h5 className="text-xl">First slide label</h5>
-                        <p>Some representative placeholder content for the first slide.</p>
+                        <h5 className="text-xl">Make Your Journey Memorable Experience</h5>
+                        <p>You can expect prices to go up for hotel rooms and many Makkah services around the designated time for Hajj.</p>
                     </div>
                     </div>
 

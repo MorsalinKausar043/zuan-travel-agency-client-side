@@ -1,24 +1,21 @@
 import React from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
+import Loading from '../pages/loading/Loading';
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const { user, isLoading} = useAuth();
+  const { user, isLoading } = useAuth();
+  console.log(isLoading);
   let location = useLocation();
-  const token = sessionStorage.getItem('idToken');
+  const token = localStorage.getItem('idToken');
+
   if (isLoading && !token)
     {
       return (
-        <>
-          <div className='col-12 col-md-4 mx-auto'>
-            <div className="spinner-border text-primary" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-          </div>
-        </>
-        )
+        <Loading />
+      )
       }
-      return( user.displayName ? children :  <Navigate to="/login" state={{ from: location }} /> 
+      return( token ? children :  <Navigate to="/login" state={{ from: location }} /> 
       )
 };
 

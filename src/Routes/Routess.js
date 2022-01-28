@@ -16,6 +16,7 @@ import AllOrder from '../components/allOrder/AllOrder';
 import MyOrder from '../components/MyOrder/MyOrder';
 import ManageOrder from '../components/ManageOrder/ManageOrder';
 import Errorpage from '../components/errorpage/Errorpage';
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const Routess = () => {
     return (
@@ -25,12 +26,12 @@ const Routess = () => {
                     <Routes>
                         <Route path="/" element={<Home />}/>
                         <Route path="/home" element={<Home />}/>
-                        <Route path="/dashboard" element={<Dashboard />}>
+                        <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
                             <Route path="/dashboard" element={<Profile/>}/>
-                            <Route path="/dashboard/addtravels" element={<AddTravel/>}/>
-                            <Route path="/dashboard/allorder" element={<AllOrder/>}/>
-                            <Route path="/dashboard/myorder" element={<MyOrder/>}/>
-                            <Route path="/dashboard/manageorder" element={<ManageOrder/>}/>
+                            <Route path="/dashboard/addtravels" element={<PrivateRoute><AddTravel/></PrivateRoute>}/>
+                            <Route path="/dashboard/allorder" element={<PrivateRoute><AllOrder/></PrivateRoute>}/>
+                            <Route path="/dashboard/myorder" element={<PrivateRoute><MyOrder/></PrivateRoute>}/>
+                            <Route path="/dashboard/manageorder" element={<PrivateRoute><ManageOrder/></PrivateRoute>}/>
                         </Route>
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/product/:_id" element={<SingleProduct />} />
