@@ -7,7 +7,7 @@ import ShowSingleData from './ShowSingleData';
 
 const SingleProduct = () => {
 
-    const { productData, isLoading } = useProduct();
+    const { AllproductData, isLoading } = useProduct();
     const { _id } = useParams()
     
 
@@ -18,7 +18,7 @@ const SingleProduct = () => {
                 isLoading ?
                     <Loading />
                     :
-                productData.filter(crrElm => crrElm._id === _id).map(data => <ShowSingleData key={data._id} {...data}/>)
+                    AllproductData.filter(crrElm => crrElm._id === _id).map(data => <ShowSingleData key={data._id} {...data}/>)
             }
         </>
     );

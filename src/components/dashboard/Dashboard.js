@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
+
+    const [clickBtn, setClickBtn] = useState(false);
     return (
         <>
             <div className="relative min-h-screen md:flex">
 
                 {/* <!-- mobile menu bar --> */}
-                <div className="bg-gray-800 text-gray-100 flex justify-between md:hidden">
+                <div onClick={() => setClickBtn(!clickBtn)} className="bg-gray-800 text-gray-100 flex justify-between md:hidden">
                 {/* <!-- logo --> */}
                 <NavLink to="/">
                     <span className="block p-4 text-white font-bold">Zuan-travels-agency</span>
@@ -22,7 +24,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* <!-- sidebar --> */}
-                <div className="sidebar bg-blue-800 text-blue-100 w-60 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+                <div className={`sidebar bg-blue-800 text-blue-100 w-60 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform ${!clickBtn ? "-translate-x-full" : ""} md:relative md:translate-x-0 transition duration-200 ease-in-out`}>
 
                 {/* <!-- logo --> */}
                 <NavLink to="/" className="text-white flex items-center space-x-2 px-4">

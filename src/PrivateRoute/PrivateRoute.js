@@ -5,7 +5,6 @@ import Loading from '../pages/loading/Loading';
 
 const PrivateRoute = ({ children, ...rest }) => {
   const { user, isLoading } = useAuth();
-  console.log(isLoading);
   let location = useLocation();
   const token = localStorage.getItem('idToken');
 
